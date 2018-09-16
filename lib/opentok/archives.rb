@@ -106,6 +106,12 @@ module OpenTok
       ArchiveList.new self, archive_list_json
     end
 
+    def find_by_session_id(session_id)
+      raise ArgumentError, "session_id not provided" if session_id.to_s.empty?
+      archive_json = @client.get_archive_by_session_id(session_id.to_s)
+      Archive.new self, archive_json
+    end
+
     # Stops an OpenTok archive that is being recorded.
     #
     # Archives automatically stop recording after 90 minutes or when all clients have disconnected
